@@ -1,0 +1,7 @@
+{
+  "name": "ngx-libs",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

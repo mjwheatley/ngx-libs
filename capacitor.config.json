@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "ngx-libs",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
