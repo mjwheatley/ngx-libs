@@ -2,12 +2,16 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Auth } from 'aws-amplify';
-import { SessionService, TranslateNpmModulesService } from './services';
 import { Subscription } from 'rxjs';
 import { AuthService } from './auth/auth.service';
-import { ICognitoUserAttributes } from './models';
-import { AppComponentUtils, Constants } from './utils';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  AppComponentUtils,
+  ICognitoUserAttributes,
+  SessionService,
+  TranslateNpmModulesService
+} from '@mawhea/ngx-core';
+import { Constants } from './Constants';
 
 interface IAppPage {
   title: string;
@@ -43,7 +47,7 @@ export class AppComponent implements OnInit, OnDestroy {
     AppComponentUtils.initializeTranslateServiceConfig({
       translateService: this.translate,
       translateNpmModulesService: this.translateNpmModulesService,
-      translateModules: []
+      translateModules: [`ngx-core`]
     });
     await this.subscribeToUser();
     this.updateMenuOptions();

@@ -2,6 +2,11 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "@mawhea/ngx-core": [
+        "dist/mawhea/ngx-core"
+      ]
+    },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

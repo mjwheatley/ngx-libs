@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Auth, Hub, Logger } from 'aws-amplify';
-import { SessionService } from '../services';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SessionService } from '@mawhea/ngx-core';
 const logger = new Logger(`AuthServiceLogger`);
 
 @Injectable({

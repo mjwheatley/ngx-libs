@@ -1,0 +1,26 @@
+@import './custom-colors.scss';
+@import './variables.scss';
+@import './container.scss';
+@import './md-theme.scss';
+
+.centered-limited-width {
+  max-width: 750px;
+  margin: 16px auto;
+  width: 95%;
+}
+
+.hidden-file-input {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+ion-item.translucent {
+  --background: translucent;
+  --inner-padding-end: 0;
+}
+
+ion-split-pane {
+  --side-max-width: 300px;
+}

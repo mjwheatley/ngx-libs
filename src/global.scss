@@ -30,26 +30,5 @@
 body {
   min-height: 100%;
 }
-@import './theme/md-theme';
 
-.centered-limited-width {
-  max-width: 750px;
-  margin: 16px auto;
-  width: 95%;
-}
-
-.hidden-file-input {
-  visibility: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-ion-item.translucent {
-  --background: translucent;
-  --inner-padding-end: 0;
-}
-
-ion-split-pane {
-  --side-max-width: 300px;
-}
+//@import "~@mawhea/ngx-core/theme/global.scss";
