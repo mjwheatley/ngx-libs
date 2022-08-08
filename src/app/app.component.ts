@@ -1,17 +1,20 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Auth } from 'aws-amplify';
+import { Auth, Hub, Logger } from 'aws-amplify';
 import { Subscription } from 'rxjs';
-import { AuthService } from './auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import {
   AppComponentUtils,
+  AuthService,
   ICognitoUserAttributes,
   SessionService,
   TranslateNpmModulesService
 } from '@mawhea/ngx-core';
 import { Constants } from './Constants';
+import { ActivatedRoute, Router } from '@angular/router';
+
+const logger = new Logger(`AppComponent`);
 
 interface IAppPage {
   title: string;
@@ -27,7 +30,6 @@ interface IAppPage {
 })
 export class AppComponent implements OnInit, OnDestroy {
   public isDarkMode: boolean;
-  public isAuthenticated: boolean;
   public user: ICognitoUserAttributes;
   public appPages: IAppPage[] = [];
   private userSub: Subscription;
@@ -39,8 +41,39 @@ export class AppComponent implements OnInit, OnDestroy {
     private session: SessionService,
     private zone: NgZone,
     private translate: TranslateService,
-    private translateNpmModulesService: TranslateNpmModulesService
+    private translateNpmModulesService: TranslateNpmModulesService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
+    Hub.listen('auth', async (data) => {
+      logger.debug(`Amplify Auth Hub event`, data.payload.event);
+      switch (data.payload.event) {
+        case 'signIn':
+          logger.debug('user signed in');
+          const user = data.payload.data.attributes;
+          this.authService.isAuthenticated = true;
+          await this.session.updateUser(user);
+          const { queryParams } = this.route.snapshot;
+          logger.debug(`queryParams`, queryParams);
+          const { redirect = `/home` } = queryParams;
+          await this.router.navigate([redirect]);
+          break;
+        case 'signUp':
+          logger.debug('user signed up');
+          break;
+        case 'signOut':
+          logger.debug('user signed out');
+          this.authService.updateAuthenticationStatus();
+          // await this.session.updateUser({});
+          await this.router.navigate([`/login`]);
+          break;
+        case 'signIn_failure':
+          logger.debug('user sign in failed');
+          break;
+        case 'configured':
+          logger.debug('the Auth module is configured');
+      }
+    });
   }
 
   async ngOnInit() {
@@ -67,7 +100,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   async signOut() {
     await Auth.signOut();
-    this.authService.currentAuthenticatedUser();
+    this.authService.updateAuthenticationStatus();
   }
 
   public async onChangeDarkMode() {
@@ -91,7 +124,7 @@ export class AppComponent implements OnInit, OnDestroy {
           url: '/home',
           icon: 'home',
           isHidden: !this.user.sub
-        },
+        }
         // {
         //   title: 'Account Menu',
         //   url: '/account-menu',

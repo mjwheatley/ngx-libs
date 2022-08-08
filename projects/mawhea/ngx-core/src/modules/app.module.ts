@@ -9,6 +9,7 @@ import {
   SessionService, TranslateNpmModulesService
 } from '../services';
 import { TranslateNpmModulesLoader } from '../utils';
+import { AuthService } from '../auth';
 
 export const createTranslateLoader = (
   http: HttpClient,
@@ -23,6 +24,7 @@ export const createTranslateLoader = (
     BrowserAnimationsModule
   ],
   providers: [
+    AuthService,
     LoadingService,
     SessionService,
     Storage,

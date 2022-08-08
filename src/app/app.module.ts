@@ -5,7 +5,6 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TestModalComponent } from './modals';
-import { AuthService } from './auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AppModule as NgxCoreAppModule, createTranslateLoader, TranslateNpmModulesService } from '@mawhea/ngx-core';
@@ -33,8 +32,7 @@ import { AppModule as NgxCoreAppModule, createTranslateLoader, TranslateNpmModul
     {
       provide: RouteReuseStrategy,
       useClass: IonicRouteStrategy
-    },
-    AuthService
+    }
   ],
   bootstrap: [AppComponent]
 })
