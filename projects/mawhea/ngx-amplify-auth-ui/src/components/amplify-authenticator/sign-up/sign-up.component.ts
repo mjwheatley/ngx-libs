@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   IAuthStateChange,
@@ -20,7 +20,6 @@ const logger = new Logger(`AmplifyAuthenticator.SignUpComponent`);
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  @ViewChild('phone') phone: any;
   @Output() authStateChange: EventEmitter<IAuthStateChange> = new EventEmitter();
   @Output() handleError: EventEmitter<any> = new EventEmitter();
 
@@ -34,16 +33,11 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     public translate: TranslateService,
-    private session: SessionService
+    private session: SessionService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
-
-  }
-
-  ngOnInit() {
-    logger.debug(`ngOnInit()`);
-    const email = this.session.get(Constants.SESSION.EMAIL_ADDRESS) || null;
     this.formGroup = new FormGroup({
-      email: new FormControl(email, {
+      email: new FormControl(null, {
         updateOn: 'change',
         validators: [
           Validators.required,
@@ -95,7 +89,16 @@ export class SignUpComponent implements OnInit {
         ])
       })
     });
-    // logger.debug(`formGroup`, this.formGroup);
+    const email = this.session.get(Constants.SESSION.EMAIL_ADDRESS) || null;
+    this.formGroup.controls.email.setValue(email);
+  }
+
+  ngOnInit() {
+    logger.debug(`ngOnInit()`);
+  }
+
+  ngAfterViewChecked() {
+    this.changeDetectorRef.detectChanges();
   }
 
   changeAuthState(authState: string) {

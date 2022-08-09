@@ -19,6 +19,7 @@
     *ngIf="authState === AUTH_STATE.signIn"
     [config]="config"
     [clientMetadata]="clientMetadata"
+    [getCustomChallengeAnswer]="getCustomChallengeAnswer"
     (authStateChange)="authStateChangeHandler($event)"
     (handleError)="handleError($event)"
   ></app-sign-in>

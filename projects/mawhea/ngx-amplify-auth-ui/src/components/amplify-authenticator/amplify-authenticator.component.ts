@@ -18,7 +18,6 @@ const logger = new Logger(`AmplifyAuthenticatorComponent`);
 })
 export class AmplifyAuthenticatorComponent implements OnInit, OnDestroy {
   @Input() initialState: string = AUTH_STATE.signIn;
-
   @Input() config: IAmplifyAuthConfig = {
     switchUser: false,
     qrCode: {
@@ -27,6 +26,7 @@ export class AmplifyAuthenticatorComponent implements OnInit, OnDestroy {
     }
   };
   @Input() clientMetadata: IAmplifyAuthClientMetadata;
+  @Input() getCustomChallengeAnswer: () => Promise<string>;
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
   public AUTH_STATE: IAuthState = AUTH_STATE;
