@@ -3,6 +3,9 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "@mawhea/ngx-amplify-auth-ui": [
+        "dist/mawhea/ngx-amplify-auth-ui"
+      ],
       "@mawhea/ngx-core": [
         "dist/mawhea/ngx-core"
       ]

@@ -63,8 +63,9 @@ export class AppComponent implements OnInit, OnDestroy {
           break;
         case 'signOut':
           logger.debug('user signed out');
-          this.authService.updateAuthenticationStatus();
-          // await this.session.updateUser({});
+          // this.authService.updateAuthenticationStatus();
+          this.authService.isAuthenticated = false;
+          await this.session.updateUser({});
           await this.router.navigate([`/login`]);
           break;
         case 'signIn_failure':
@@ -80,7 +81,7 @@ export class AppComponent implements OnInit, OnDestroy {
     AppComponentUtils.initializeTranslateServiceConfig({
       translateService: this.translate,
       translateNpmModulesService: this.translateNpmModulesService,
-      translateModules: [`ngx-core`]
+      translateModules: [`ngx-core`, `ngx-amplify-auth-ui`]
     });
     await this.subscribeToUser();
     this.updateMenuOptions();

@@ -1,0 +1,42 @@
+.date-of-birth-input-element {
+  border: none;
+  background: none;
+  padding: 0;
+  outline: none;
+  font: inherit;
+  text-align: center;
+
+  &:disabled {
+    color: rgba(0, 0, 0, 0.38);
+
+    + .date-of-birth-slash {
+      color: rgba(0, 0, 0, 0.38);
+    }
+  }
+}
+
+.date-of-birth-slash,
+.date-of-birth-input-element {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+.date-of-birth-slash {
+  margin: 0 2px;
+}
+
+.date-of-birth-input-element {
+  min-width: 26px;
+  margin: 0 2px;
+}
+
+:host.floating {
+  .date-of-birth-slash,
+  .date-of-birth-input-element {
+    opacity: 1;
+  }
+}
+
+.hidden-date-of-birth-input-element {
+  display: none;
+}

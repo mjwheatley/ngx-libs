@@ -1,0 +1,67 @@
+<div
+  role="group"
+  #container
+  [attr.aria-labelledby]="formField?.getLabelId()"
+  (focusin)="onFocusIn($event)"
+  (focusout)="onFocusOut($event)"
+  *ngIf="formGroup && parts"
+>
+  <div [formGroup]="formGroup">
+    <input
+      class="hidden-date-of-birth-input-element"
+      [matDatepicker]="matDatepicker"
+      [min]="min"
+      [max]="max"
+      [required]="required"
+      name="dateOfBirth"
+      formControlName="dateOfBirth"
+    />
+  </div>
+  <div [formGroup]="parts">
+    <input
+      class="date-of-birth-input-element"
+      formControlName="month"
+      required
+      size="2"
+      minlength="2"
+      maxlength="2"
+      pattern="[0-9]*"
+      aria-label="Month"
+      placeholder="MM "
+      (keydown)="handleKeyDown($event, parts.controls.month, day)"
+      (input)="handleInput(parts.controls.month, day)"
+      #month
+    />
+    <span class="date-of-birth-slash">/</span>
+    <input
+      class="date-of-birth-input-element"
+      formControlName="day"
+      required
+      minlength="2"
+      maxlength="2"
+      size="2"
+      pattern="[0-9]*"
+      aria-label="Day"
+      placeholder="DD"
+      (keydown)="handleKeyDown($event, parts.controls.day, year)"
+      (input)="handleInput(parts.controls.day, year)"
+      (keyup.backspace)="autoFocusPrev(parts.controls.day, month)"
+      #day
+    />
+    <span class="date-of-birth-slash">/</span>
+    <input
+      class="date-of-birth-input-element"
+      formControlName="year"
+      required
+      size="4"
+      minlength="2"
+      maxlength="4"
+      pattern="[0-9]*"
+      aria-label="Year"
+      placeholder="YYYY"
+      (input)="handleInput(parts.controls.year)"
+      (keyup.backspace)="autoFocusPrev(parts.controls.year, day)"
+      #year
+    />
+  </div>
+</div>

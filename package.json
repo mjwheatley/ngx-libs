@@ -14,6 +14,9 @@
     "build:modules:ngx-core": "ng build @mawhea/ngx-core",
     "watch:ngx-core": "ng build @mawhea/ngx-core --watch",
     "publish:ngx-core": "npm run build:modules:ngx-core && cd dist/mawhea/ngx-core && npm publish",
+    "build:modules:ngx-amplify-auth-ui": "ng build @mawhea/ngx-amplify-auth-ui",
+    "watch:ngx-amplify-auth-ui": "ng build @mawhea/ngx-amplify-auth-ui --watch",
+    "publish:ngx-amplify-auth-ui": "npm run build:modules:ngx-amplify-auth-ui && cd dist/mawhea/ngx-amplify-auth-ui && npm publish",
     "build:modules": "run-s build:modules:*"
   },
   "private": true,
@@ -35,10 +38,13 @@
     "@capacitor/status-bar": "4.0.1",
     "@ionic/angular": "^6.1.9",
     "@ionic/storage": "^3.0.4",
+    "@mawhea/ngx-amplify-auth-ui": "file:dist/mawhea/ngx-amplify-auth-ui",
     "@mawhea/ngx-core": "file:dist/mawhea/ngx-core",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "aws-amplify": "^4.3.30",
+    "libphonenumber-js": "^1.10.6",
+    "ngx-mat-intl-tel-input": "^4.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

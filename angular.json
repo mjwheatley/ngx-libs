@@ -33,6 +33,11 @@
                 "glob": "**/*",
                 "input": "node_modules/@mawhea/ngx-core/assets",
                 "output": "assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@mawhea/ngx-amplify-auth-ui/assets",
+                "output": "assets"
               }
             ],
             "styles": ["src/theme/variables.scss", "src/global.scss", "./node_modules/@mawhea/ngx-core/theme/global.scss"],
@@ -176,6 +181,37 @@
             "main": "projects/mawhea/ngx-core/src/test.ts",
             "tsConfig": "projects/mawhea/ngx-core/tsconfig.spec.json",
             "karmaConfig": "projects/mawhea/ngx-core/karma.conf.js"
+          }
+        }
+      }
+    },
+    "@mawhea/ngx-amplify-auth-ui": {
+      "projectType": "library",
+      "root": "projects/mawhea/ngx-amplify-auth-ui",
+      "sourceRoot": "projects/mawhea/ngx-amplify-auth-ui/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/mawhea/ngx-amplify-auth-ui/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/mawhea/ngx-amplify-auth-ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/mawhea/ngx-amplify-auth-ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/mawhea/ngx-amplify-auth-ui/src/test.ts",
+            "tsConfig": "projects/mawhea/ngx-amplify-auth-ui/tsconfig.spec.json",
+            "karmaConfig": "projects/mawhea/ngx-amplify-auth-ui/karma.conf.js"
           }
         }
       }

@@ -1,0 +1,197 @@
+<ion-card-header>
+  <ion-card-title class="ion-text-capitalize">
+    {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.header-text' | translate}}
+  </ion-card-title>
+</ion-card-header>
+<ion-card-content>
+  <form
+    class="ion-margin-bottom"
+    [formGroup]="formGroup"
+    (keyup.enter)="signUp()"
+  >
+    <ion-row>
+      <ion-col>
+        <mat-form-field class="mat-form-field-full-width">
+          <mat-label>
+            {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.labels.email' | translate}}
+          </mat-label>
+          <input
+            matInput
+            formControlName="email"
+            type="email"
+            autocomplete="email"
+          />
+          <button
+            *ngIf="formGroup.controls.email.value"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear Email"
+            type="button"
+            color="accent"
+            (click)="clearEmail()"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </ion-col>
+      <ion-col>
+        <app-phone-number
+          formControlName="phoneNumber"
+        >
+        </app-phone-number>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <mat-form-field class="mat-form-field-full-width">
+          <mat-label>
+            {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.labels.givenName' | translate}}
+          </mat-label>
+          <input
+            matInput
+            formControlName="givenName"
+            type="text"
+            autocomplete="given-name"
+            autocapitalize="words"
+          />
+        </mat-form-field>
+      </ion-col>
+      <ion-col>
+        <mat-form-field class="mat-form-field-full-width">
+          <mat-label>
+            {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.labels.middleName' | translate}}
+          </mat-label>
+          <input
+            matInput
+            formControlName="middleName"
+            type="text"
+            autocomplete="middle-name"
+            autocapitalize="words"
+          />
+        </mat-form-field>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <mat-form-field class="mat-form-field-full-width">
+          <mat-label>
+            {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.labels.familyName' | translate}}
+          </mat-label>
+          <input
+            matInput
+            formControlName="familyName"
+            type="text"
+            autocomplete="family-name"
+            autocapitalize="words"
+          />
+        </mat-form-field>
+      </ion-col>
+      <ion-col>
+        <app-date-of-birth
+          [label]="'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.labels.birthday' | translate"
+          formControlName="birthdate"
+        ></app-date-of-birth>
+      </ion-col>
+    </ion-row>
+
+    <div formGroupName="passwordGroup">
+      <ion-row>
+        <ion-col>
+          <mat-form-field class="mat-form-field-full-width">
+            <mat-label>
+              {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.labels.password' | translate}}
+            </mat-label>
+            <input
+              matInput
+              formControlName="password"
+              [type]="showPassword ? 'text' : 'password'"
+              autocomplete="off"
+            />
+            <button
+              matSuffix
+              mat-icon-button
+              aria-label="Toggle Password Visibility"
+              type="button"
+              color="accent"
+              (click)="toggleShowPassword()"
+            >
+              <mat-icon>{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+            </button>
+          </mat-form-field>
+        </ion-col>
+        <ion-col>
+          <mat-form-field class="mat-form-field-full-width">
+            <mat-label>
+              {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.labels.confirmPassword' | translate}}
+            </mat-label>
+            <input
+              matInput
+              formControlName="confirmPassword"
+              autocomplete="off"
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              [errorStateMatcher]="confirmValidParentMatcher"
+            />
+            <button
+              matSuffix
+              mat-icon-button
+              aria-label="Toggle Confirm Password Visibility"
+              type="button"
+              color="accent"
+              (click)="toggleShowConfirmPassword()"
+            >
+              <mat-icon>{{showConfirmPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+            </button>
+            <mat-error>
+              {{"@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.errors.confirmPassword" | translate}}
+            </mat-error>
+          </mat-form-field>
+
+        </ion-col>
+      </ion-row>
+    </div>
+  </form>
+
+  <ion-row>
+    <ion-col>
+      <ion-button
+        class="button-primary"
+        expand="block"
+        size="large"
+        [disabled]="formGroup.invalid || isCreatingAccount"
+        (click)="signUp()">
+        <ion-text *ngIf="!isCreatingAccount">
+          {{ '@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.buttons.createAccount' | translate}}
+        </ion-text>
+        <ion-text *ngIf="isCreatingAccount">
+          {{ '@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.buttons.creatingAccount' | translate}}
+        </ion-text>
+        <ion-spinner name="dots" *ngIf="isCreatingAccount"></ion-spinner>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <!--  <ion-row class="ion-justify-content-center ion-align-items-center">-->
+  <!--    <ion-item-->
+  <!--      lines="none"-->
+  <!--      class="ion-no-padding no-inner-padding"-->
+  <!--    >-->
+  <!--      <ion-label class="ion-text-end">-->
+  <!--        <ion-text>-->
+  <!--          {{ '@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.text.haveAccount' | translate}}-->
+  <!--        </ion-text>-->
+  <!--      </ion-label>-->
+  <!--      <ion-button-->
+  <!--        fill="clear"-->
+  <!--        size="medium"-->
+  <!--        class="pp-text-transform-none"-->
+  <!--        (click)="changeAuthState(AUTH_STATE.signIn)"-->
+  <!--      >-->
+  <!--        <strong>-->
+  <!--          {{ '@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.buttons.signIn' | translate}}-->
+  <!--        </strong>-->
+  <!--      </ion-button>-->
+  <!--    </ion-item>-->
+  <!--  </ion-row>-->
+</ion-card-content>

@@ -1,0 +1,167 @@
+{
+  "@mawhea/ngx-amplify-auth-ui": {
+    "app-amplify-authenticator": {
+      "errors": {
+        "accountError": "Account Error"
+      },
+      "sign-up": {
+        "header-text": "Sign up",
+        "text": {
+          "haveAccount": "Already have an account?"
+        },
+        "labels": {
+          "email": "Email Address",
+          "givenName": "First Name",
+          "middleName": "Middle Name",
+          "familyName": "Last Name",
+          "birthday": "Birthday",
+          "phoneNumber": "Phone Number",
+          "password": "Password",
+          "confirmPassword": "Confirm Password"
+        },
+        "placeholders": {
+          "email": "Enter your email address",
+          "password": "Enter your password",
+          "confirmPassword": "Confirm your password",
+          "givenName": "Enter your given name",
+          "familyName": "Enter your family name"
+        },
+        "hints": {
+          "birthday": "MM/DD/YYYY"
+        },
+        "buttons": {
+          "signIn": "Sign in",
+          "createAccount": "Create Account",
+          "creatingAccount": "Creating Account"
+        },
+        "errors": {
+          "confirmPassword": "Your passwords do not match"
+        }
+      },
+      "sign-in": {
+        "header-text": "Sign in",
+        "text": {
+          "forgotPassword": "Forgot your password?",
+          "noAccount": "Don't have an account?"
+        },
+        "labels": {
+          "email": "Email Address",
+          "password": "Password"
+        },
+        "placeholders": {
+          "email": "Enter your email address",
+          "password": "Enter your password"
+        },
+        "buttons": {
+          "signIn": "Sign In",
+          "cancel": "Cancel",
+          "createAccount": "Sign up",
+          "resetPassword": "Reset password",
+          "qrCode": "QR Code",
+          "scan": "Scan"
+        }
+      },
+      "forgot-password": {
+        "header-text": "Forgot password",
+        "labels": {
+          "email": "Email Address"
+        },
+        "text": {
+          "rememberedPassword": "Remembered password?"
+        },
+        "placeholders": {
+          "email": "Enter your email address"
+        },
+        "buttons": {
+          "sendCode": "Send Code",
+          "signIn": "Sign in"
+        }
+      },
+      "reset-password": {
+        "header-text": "Reset password",
+        "labels": {
+          "code": "Verification Code",
+          "password": "New Password",
+          "confirmPassword": "Confirm Password",
+          "email": "Email Address"
+        },
+        "placeholders": {
+          "code": "Enter code",
+          "password": "Enter your new password",
+          "confirmPassword": "Confirm your new password"
+        },
+        "buttons": {
+          "resetPassword": "Submit",
+          "signIn": "Back to Sign In",
+          "resendCode": "Resend code"
+        },
+        "alerts": {
+          "resetPassword": {
+            "header": "Password Reset",
+            "subHeader": "Successfully reset your password",
+            "message": "Please sign in with your new password"
+          }
+        }
+      },
+      "change-password": {
+        "header-text": "Change password",
+        "labels": {
+          "currentPassword": "Current Password",
+          "password": "New Password",
+          "confirmPassword": "Confirm Password"
+        },
+        "placeholders": {
+          "currentPassword": "Enter your current password",
+          "password": "Enter your new password",
+          "confirmPassword": "Confirm your new password"
+        },
+        "buttons": {
+          "changePassword": "Submit"
+        },
+        "toasts": {
+          "changedPassword": {
+            "header": "Password Changed",
+            "message": "Your password has successfully been changed!"
+          }
+        }
+      },
+      "confirm-sign-up": {
+        "header-text": "Confirm your email address",
+        "text": {
+          "lostCode": "Lost your code?"
+        },
+        "alerts": {
+          "confirmedSignUp": {
+            "header": "Email Confirmed",
+            "subHeader": "Your email address has successfully been confirmed",
+            "message": "Please sign in again"
+          }
+        },
+        "toast": {
+          "resendCode": {
+            "header": "Account Verification",
+            "message": "A new verification code has been sent to your email address"
+          }
+        },
+        "labels": {
+          "email": "Email Address",
+          "code": "Confirmation Code"
+        },
+        "placeholders": {
+          "email": "Enter your email address",
+          "code": "Enter your code"
+        },
+        "buttons": {
+          "resendCode": "Resend Code",
+          "signIn": "Back to Sign In",
+          "confirmSignUp": "Confirm"
+        }
+      }
+    },
+    "component-date-of-birth": {
+      "labels": {
+        "dob": "Date of Birth"
+      }
+    }
+  }
+}

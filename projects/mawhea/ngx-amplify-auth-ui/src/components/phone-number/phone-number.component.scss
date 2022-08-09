@@ -1,0 +1,57 @@
+::ng-deep .country-selector {
+  color: black;
+}
+
+::ng-deep body.dark .country-selector {
+  color: white;
+}
+
+::ng-deep .mat-form-field-should-float .country-selector {
+  opacity: 1 !important;
+  bottom: 8px !important;
+}
+
+::ng-deep .mat-menu-content {
+  color: var(--ion-text-color);
+}
+
+::ng-deep .mat-menu-content input.country-search {
+  background: var(--ion-color-light-shade) !important;
+  border-bottom: 1px solid !important;
+  border-bottom-color: var(--ion-color-step-250) !important;
+}
+
+::ng-deep .mat-menu-content input[type="text"].country-search:focus {
+  outline: none;
+}
+
+::ng-deep input:not(.country-search) {
+  bottom: 3px;
+  left: 10px;
+}
+
+::ng-deep .country-list-button {
+  font-size: 0.8rem !important;
+}
+
+::ng-deep .mat-menu-content:not(:empty) {
+  max-height: 250px;
+  background: var(--ion-color-light-shade);
+}
+
+::ng-deep .m-t-10 {
+  margin-top: 10px;
+}
+
+//.error{
+//  color:red;
+//}
+
+::ng-deep button.mat-menu-item.country-list-button {
+  color: var(--ion-text-color);
+  background: var(--ion-background-color);
+}
+
+::ng-deep button.mat-menu-item.country-list-button:hover:not([disabled]) {
+  background: var(--ion-color-step-300);
+}

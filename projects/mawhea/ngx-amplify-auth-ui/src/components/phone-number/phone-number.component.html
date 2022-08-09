@@ -1,0 +1,20 @@
+<form [formGroup]="formGroup">
+  <mat-form-field class="mat-form-field-full-width">
+    <mat-label>
+      {{label || '@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.labels.phoneNumber' | translate}}
+    </mat-label>
+    <ngx-mat-intl-tel-input
+      #phone
+      name="phone"
+      formControlName="phoneNumber"
+      [inputPlaceholder]="getInputPlaceholder(phone?.selectedCountry)"
+      [preferredCountries]="['us']"
+      [enablePlaceholder]="true"
+      [enableSearch]="true"
+    >
+    </ngx-mat-intl-tel-input>
+    <mat-hint *ngIf="hint">
+      {{hint}}
+    </mat-hint>
+  </mat-form-field>
+</form>

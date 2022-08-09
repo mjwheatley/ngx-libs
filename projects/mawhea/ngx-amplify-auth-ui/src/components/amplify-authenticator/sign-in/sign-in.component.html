@@ -1,0 +1,89 @@
+<ion-card-header>
+  <ion-card-title class="ion-text-capitalize">
+    {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-in.header-text' | translate}}
+  </ion-card-title>
+</ion-card-header>
+<ion-card-content>
+  <form
+    [formGroup]="formGroup"
+    (keyup.enter)="signIn()"
+  >
+    <mat-form-field class="mat-form-field-full-width">
+      <mat-label>
+        {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-in.labels.email' | translate}}
+      </mat-label>
+      <input
+        matInput
+        required
+        formControlName="email"
+        type="email"
+        autocomplete="email"
+      />
+      <button
+        *ngIf="formGroup.controls.email.value"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear Email"
+        type="button"
+        color="accent"
+        (click)="clearEmail()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field class="mat-form-field-full-width">
+      <mat-label>
+        {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-in.labels.password' | translate}}
+      </mat-label>
+      <input
+        matInput
+        required
+        formControlName="password"
+        [type]="showPassword ? 'text' : 'password'"
+        autocomplete="off"
+      />
+      <button
+        matSuffix
+        mat-icon-button
+        aria-label="Toggle Password Visibility"
+        type="button"
+        color="accent"
+        (click)="toggleShowPassword()"
+      >
+        <mat-icon>{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+
+  <ion-row>
+    <ion-col>
+      <ion-button
+        class="ion-margin"
+        expand="block"
+        size="large"
+        [disabled]="formGroup.invalid || isSigningIn"
+        (click)="signIn()"
+      >
+        <ion-text>
+          {{ '@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-in.buttons.signIn' | translate}}
+        </ion-text>
+        <ion-spinner name="dots" *ngIf="isSigningIn"></ion-spinner>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-button
+        expand="full"
+        fill="clear"
+        color="tertiary"
+        class="text-transform-none ion-text-right"
+        (click)="changeAuthState(AUTH_STATE.forgotPassword)"
+      >
+        {{ '@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-in.text.forgotPassword' | translate}}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-card-content>

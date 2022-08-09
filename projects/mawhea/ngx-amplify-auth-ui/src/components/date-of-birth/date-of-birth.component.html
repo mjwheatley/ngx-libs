@@ -1,0 +1,19 @@
+<form [formGroup]="formGroup">
+  <mat-form-field class="mat-form-field-full-width">
+    <mat-label>
+      {{label || ('@passprint/common.component-date-of-birth.labels.dob' | translate)}}
+    </mat-label>
+    <app-date-of-birth-inputs
+      formControlName="dateOfBirth"
+      [min]="minDOB"
+      [max]="maxDOB"
+      [matDatepicker]="dob"
+      [required]="required"
+    ></app-date-of-birth-inputs>
+    <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
+    <mat-datepicker #dob></mat-datepicker>
+    <mat-hint *ngIf="hint">
+      {{hint}}
+    </mat-hint>
+  </mat-form-field>
+</form>

@@ -1,0 +1,101 @@
+<ion-segment
+  *ngIf="[AUTH_STATE.signIn, AUTH_STATE.signUp].includes(authState)"
+  (ionChange)="segmentChanged($event)"
+  [value]="authState"
+>
+  <ion-segment-button [value]="AUTH_STATE.signIn">
+    <ion-label>
+      {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-in.header-text' | translate}}
+    </ion-label>
+  </ion-segment-button>
+  <ion-segment-button [value]="AUTH_STATE.signUp">
+    <ion-label>
+      {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.header-text' | translate}}
+    </ion-label>
+  </ion-segment-button>
+</ion-segment>
+<ion-card-content>
+  <app-sign-in
+    *ngIf="authState === AUTH_STATE.signIn"
+    [config]="config"
+    [clientMetadata]="clientMetadata"
+    (authStateChange)="authStateChangeHandler($event)"
+    (handleError)="handleError($event)"
+  ></app-sign-in>
+  <app-sign-up
+    *ngIf="authState === AUTH_STATE.signUp"
+    (authStateChange)="authStateChangeHandler($event)"
+    (handleError)="handleError($event)"
+  ></app-sign-up>
+  <app-forgot-password
+    *ngIf="authState === AUTH_STATE.forgotPassword"
+    (authStateChange)="authStateChangeHandler($event)"
+    (handleError)="handleError($event)"
+  ></app-forgot-password>
+  <app-reset-password
+    *ngIf="authState === AUTH_STATE.resetPassword"
+    (authStateChange)="authStateChangeHandler($event)"
+    (handleError)="handleError($event)"
+    (handleMessage)="handleMessage($event)"
+  ></app-reset-password>
+  <app-confirm-sign-up
+    *ngIf="authState === AUTH_STATE.confirmSignUp"
+    (authStateChange)="authStateChangeHandler($event)"
+    (handleError)="handleError($event)"
+    (handleMessage)="handleMessage($event)"
+  ></app-confirm-sign-up>
+  <ion-card-header *ngIf="authState === AUTH_STATE.signedIn" class="ion-text-center">
+    <ion-card-title>
+      You are signed in!
+    </ion-card-title>
+  </ion-card-header>
+  <div *ngIf="authMessages?.length">
+    <ion-item
+      *ngFor="let authMessage of authMessages; let i = index"
+      lines="none"
+      color="dark"
+      class="ion-margin-bottom"
+    >
+      <ion-icon
+        slot="start"
+        ios="information-circle-outline"
+        md="information-circle"
+      ></ion-icon>
+      <ion-label class="ion-text-wrap">
+        {{authMessage.header}}
+        <p>
+          {{authMessage.message}}
+        </p>
+      </ion-label>
+      <ion-button
+        slot="end"
+        fill="clear"
+        (click)="clearAuthMessage(i)"
+      >
+        <ion-icon slot="icon-only" name="close" color="light"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </div>
+  <div *ngIf="authErrors?.length">
+    <ion-item
+      *ngFor="let authError of authErrors; let i = index"
+      lines="none"
+      color="danger"
+      class="ion-margin-bottom"
+    >
+      <ion-icon
+        slot="start"
+        ios="warning-outline"
+        md="warning"
+      ></ion-icon>
+      {{authError}}
+      <ion-button
+        slot="end"
+        fill="clear"
+        (click)="clearAuthError(i)"
+      >
+        <ion-icon slot="icon-only" name="close" color="dark"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </div>
+</ion-card-content>
