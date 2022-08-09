@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { SessionService } from '@mawhea/ngx-core';
 import { Hub, Logger } from 'aws-amplify';
 import {
@@ -51,6 +51,7 @@ export class AmplifyAuthenticatorComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    this.authState = AUTH_STATE[this.initialState] || AUTH_STATE.signIn;
   }
 
   ngOnDestroy() {
@@ -73,8 +74,9 @@ export class AmplifyAuthenticatorComponent implements OnInit, OnDestroy {
     this.authMessages.push(message);
   }
 
-  public segmentChanged(event) {
-    this.authState = event.detail.value;
+  public async segmentChanged(event) {
+    const authState = event.detail.value;
+    await this.authStateChangeHandler({ authState });
   }
 
   public clearAuthError(index: number) {

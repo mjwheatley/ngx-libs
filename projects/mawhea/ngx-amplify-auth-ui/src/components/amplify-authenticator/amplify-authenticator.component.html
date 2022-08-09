@@ -54,7 +54,6 @@
     <ion-item
       *ngFor="let authMessage of authMessages; let i = index"
       lines="none"
-      color="dark"
       class="ion-margin-bottom"
     >
       <ion-icon
@@ -73,7 +72,7 @@
         fill="clear"
         (click)="clearAuthMessage(i)"
       >
-        <ion-icon slot="icon-only" name="close" color="light"></ion-icon>
+        <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-item>
   </div>
@@ -95,7 +94,7 @@
         fill="clear"
         (click)="clearAuthError(i)"
       >
-        <ion-icon slot="icon-only" name="close" color="dark"></ion-icon>
+        <ion-icon slot="icon-only" name="close" style="color: white"></ion-icon>
       </ion-button>
     </ion-item>
   </div>

@@ -13,15 +13,17 @@
   <ion-row>
     <ion-col>
       <ion-card class="centered-limited-width">
-        <app-amplify-authenticator></app-amplify-authenticator>
+        <app-amplify-authenticator
+          [initialState]="initialState"
+        ></app-amplify-authenticator>
       </ion-card>
     </ion-col>
 <!--  </ion-row>-->
 <!--  <ion-row>-->
     <ion-col>
       <amplify-authenticator
-        initialState="signIn"
         class="ion-padding ion-margin"
+        [initialState]="initialState"
         [formFields]="formFields"
         [signUpAttributes]="signUpAttributes"
       >

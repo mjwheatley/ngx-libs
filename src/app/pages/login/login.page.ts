@@ -93,6 +93,7 @@ export class LoginPage implements OnInit {
     }
   };
   public areTermsAccepted: boolean;
+  public initialState: any = `signIn`;
 
   constructor(
     public authenticator: AuthenticatorService
