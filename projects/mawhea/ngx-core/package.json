@@ -1,6 +1,9 @@
 {
   "name": "@mawhea/ngx-core",
   "version": "0.0.1",
+  "author": "mjwheatley",
+  "homepage": "https://github.com/mjwheatley/ngx-libs",
+  "license": "MIT",
   "peerDependencies": {
     "@angular/animations": "^14.0.0",
     "@angular/cdk": "^14.1.1",

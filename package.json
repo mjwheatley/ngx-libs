@@ -2,7 +2,8 @@
   "name": "ngx-libs",
   "version": "0.0.1",
   "author": "mjwheatley",
-  "homepage": "https://ionicframework.com/",
+  "homepage": "https://github.com/mjwheatley/ngx-libs",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -13,13 +14,12 @@
     "build:env": ". environments/${AMPLIFY_ENV}.env.sh && node environment.js",
     "build:modules:ngx-core": "ng build @mawhea/ngx-core",
     "watch:ngx-core": "ng build @mawhea/ngx-core --watch",
-    "publish:ngx-core": "npm run build:modules:ngx-core && cd dist/mawhea/ngx-core && npm publish",
+    "publish:ngx-core": "npm run build:modules:ngx-core && cd dist/mawhea/ngx-core && npm publish --access public",
     "build:modules:ngx-amplify-auth-ui": "ng build @mawhea/ngx-amplify-auth-ui",
     "watch:ngx-amplify-auth-ui": "ng build @mawhea/ngx-amplify-auth-ui --watch",
-    "publish:ngx-amplify-auth-ui": "npm run build:modules:ngx-amplify-auth-ui && cd dist/mawhea/ngx-amplify-auth-ui && npm publish",
+    "publish:ngx-amplify-auth-ui": "npm run build:modules:ngx-amplify-auth-ui && cd dist/mawhea/ngx-amplify-auth-ui && npm publish --access public",
     "build:modules": "run-s build:modules:*"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^14.0.0",
     "@angular/cdk": "^14.1.1",
@@ -38,8 +38,8 @@
     "@capacitor/status-bar": "4.0.1",
     "@ionic/angular": "^6.1.9",
     "@ionic/storage": "^3.0.4",
-    "@mawhea/ngx-amplify-auth-ui": "file:dist/mawhea/ngx-amplify-auth-ui",
-    "@mawhea/ngx-core": "file:dist/mawhea/ngx-core",
+    "@mawhea/ngx-amplify-auth-ui": "^0.0.1",
+    "@mawhea/ngx-core": "^0.0.1",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "aws-amplify": "^4.3.30",
@@ -84,5 +84,5 @@
     "ts-node": "~8.3.0",
     "typescript": "~4.7.3"
   },
-  "description": "An Ionic project"
+  "description": "Project for development of @mawhea angular library node modules"
 }
