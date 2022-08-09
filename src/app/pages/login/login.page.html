@@ -16,6 +16,8 @@
         <app-amplify-authenticator></app-amplify-authenticator>
       </ion-card>
     </ion-col>
+<!--  </ion-row>-->
+<!--  <ion-row>-->
     <ion-col>
       <amplify-authenticator
         initialState="signIn"
@@ -23,15 +25,15 @@
         [formFields]="formFields"
         [signUpAttributes]="signUpAttributes"
       >
-        <ng-template amplifySlot="header">
-          <div style="padding: var(--amplify-space-large); text-align: center">
-            <img
-              class="amplify-image"
-              alt="Amplify logo"
-              src="https://docs.amplify.aws/assets/logo-dark.svg"
-            />
-          </div>
-        </ng-template>
+<!--        <ng-template amplifySlot="header">-->
+<!--          <div style="padding: var(&#45;&#45;amplify-space-large); text-align: center">-->
+<!--            <img-->
+<!--              class="amplify-image"-->
+<!--              alt="Amplify logo"-->
+<!--              src="https://docs.amplify.aws/assets/logo-dark.svg"-->
+<!--            />-->
+<!--          </div>-->
+<!--        </ng-template>-->
 
         <ng-template amplifySlot="sign-in-header">
           <h3
@@ -75,13 +77,13 @@
         <!--      </div>-->
         <!--    </ng-template>-->
 
-        <ng-template amplifySlot="footer">
-          <div style="padding: var(--amplify-space-large); text-align: center">
-            <p class="amplify-text" style="color: var(--amplify-colors-neutral-80)">
-              © All Rights Reserved
-            </p>
-          </div>
-        </ng-template>
+<!--        <ng-template amplifySlot="footer">-->
+<!--          <div style="padding: var(&#45;&#45;amplify-space-large); text-align: center">-->
+<!--            <p class="amplify-text" style="color: var(&#45;&#45;amplify-colors-neutral-80)">-->
+<!--              © All Rights Reserved-->
+<!--            </p>-->
+<!--          </div>-->
+<!--        </ng-template>-->
 
         <ng-template amplifySlot="confirm-sign-up-header">
           <h3
