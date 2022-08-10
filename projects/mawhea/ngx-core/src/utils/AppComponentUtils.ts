@@ -1,6 +1,13 @@
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateNpmModulesService } from '../services';
 
+export interface IAppPage {
+  title: string;
+  url: string;
+  icon: string;
+  isHidden?: boolean;
+}
+
 export class AppComponentUtils {
 
   static initializeTranslateServiceConfig({
