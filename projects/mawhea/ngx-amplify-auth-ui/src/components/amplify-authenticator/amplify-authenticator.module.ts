@@ -7,7 +7,7 @@ import {
   SignInComponent,
   SignUpComponent,
 } from './sub-components';
-import { SharedModule } from '../../modules/shared.module';
+import { SharedModule } from '../../modules';
 
 @NgModule({
   imports: [

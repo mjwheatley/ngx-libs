@@ -17,7 +17,8 @@ import { NgxMatIntlTelInputModule } from 'ngx-mat-intl-tel-input';
     CoreSharedModule,
     DateOfBirthComponent,
     DateOfBirthInputsComponent,
-    PhoneNumberComponent
+    PhoneNumberComponent,
+    NgxMatIntlTelInputModule
   ]
 })
 export class SharedModule {
