@@ -163,7 +163,7 @@ export class DateOfBirthComponent implements OnInit, ControlValueAccessor {
     } else if (/\d{4}-\d{2}-\d{2}\s*$/.test(value)) {
       return new Date(value.replace(/\s*$/, 'T00:00'));
     }
-    
+
     return new Date(value);
   }
 

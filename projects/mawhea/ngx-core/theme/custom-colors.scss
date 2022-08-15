@@ -1,17 +1,35 @@
 :root {
-  --ion-color-background: #313c42;
-  --ion-color-background-rgb: 49,60,66;
-  --ion-color-background-contrast: #ffffff;
-  --ion-color-background-contrast-rgb: 255,255,255;
-  --ion-color-background-shade: #2b353a;
-  --ion-color-background-tint: #465055;
+  --ion-color-background-dark: #313c42;
+  --ion-color-background-dark-rgb: 49,60,66;
+  --ion-color-background-dark-contrast: #ffffff;
+  --ion-color-background-dark-contrast-rgb: 255,255,255;
+  --ion-color-background-dark-shade: #2b353a;
+  --ion-color-background-dark-tint: #465055;
 }
 
-.ion-color-background {
-  --ion-color-base: var(--ion-color-background);
-  --ion-color-base-rgb: var(--ion-color-background-rgb);
-  --ion-color-contrast: var(--ion-color-background-contrast);
-  --ion-color-contrast-rgb: var(--ion-color-background-contrast-rgb);
-  --ion-color-shade: var(--ion-color-background-shade);
-  --ion-color-tint: var(--ion-color-background-tint);
+.ion-color-background-dark {
+  --ion-color-base: var(--ion-color-background-dark);
+  --ion-color-base-rgb: var(--ion-color-background-dark-rgb);
+  --ion-color-contrast: var(--ion-color-background-dark-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-background-dark-contrast-rgb);
+  --ion-color-shade: var(--ion-color-background-dark-shade);
+  --ion-color-tint: var(--ion-color-background-dark-tint);
+}
+
+:root {
+  --ion-color-background-light: #CFD8DC;
+  --ion-color-background-light-rgb: 207,216,220;
+  --ion-color-background-light-contrast: #000000;
+  --ion-color-background-light-contrast-rgb: 0,0,0;
+  --ion-color-background-light-shade: #b6bec2;
+  --ion-color-background-light-tint: #d4dce0;
+}
+
+.ion-color-background-light {
+  --ion-color-base: var(--ion-color-background-light);
+  --ion-color-base-rgb: var(--ion-color-background-light-rgb);
+  --ion-color-contrast: var(--ion-color-background-light-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-background-light-contrast-rgb);
+  --ion-color-shade: var(--ion-color-background-light-shade);
+  --ion-color-tint: var(--ion-color-background-light-tint);
 }

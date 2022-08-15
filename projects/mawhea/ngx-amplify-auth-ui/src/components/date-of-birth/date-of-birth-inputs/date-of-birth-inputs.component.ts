@@ -14,16 +14,19 @@ import { MAT_FORM_FIELD, MatFormField, MatFormFieldControl } from '@angular/mate
 import {
   AbstractControl,
   ControlValueAccessor,
-  FormBuilder,
+  FormBuilder, FormControl,
   FormGroup,
   NgControl,
   ValidationErrors,
   Validators
 } from '@angular/forms';
-import { MatDatepicker } from '@angular/material/datepicker';
+import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Subject } from 'rxjs';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Logger } from 'aws-amplify';
+
+const logger = new Logger(`DateOfBirthInutsComponent`);
 
 @Component({
   selector: 'app-date-of-birth-inputs',
@@ -37,7 +40,6 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
   ]
 })
 export class DateOfBirthInputsComponent implements OnInit, OnDestroy, MatFormFieldControl<Date>, ControlValueAccessor {
-  @Input() date: Date = new Date();
   @Input() min: Date = new Date();
   @Input() max: Date = new Date();
   @Input() matDatepicker: MatDatepicker<any>;
@@ -55,10 +57,11 @@ export class DateOfBirthInputsComponent implements OnInit, OnDestroy, MatFormFie
   public focused: boolean = false;
   public controlType?: string = 'date-of-birth';
   public autofilled?: boolean;
+  private date: Date = new Date();
 
   private _required: boolean = false;
   private _disabled: boolean = false;
-  private _placeholder: string = "";
+  private _placeholder: string = '';
 
   static nextId = 0;
 
@@ -73,12 +76,24 @@ export class DateOfBirthInputsComponent implements OnInit, OnDestroy, MatFormFie
     const year = this.date?.getFullYear().toString();
 
     this.formGroup = this.formBuilder.group({
-      dateOfBirth: [this.date, this.required ? [Validators.required] : []]
+      dateOfBirth: new FormControl(this.date, {
+        updateOn: 'change',
+        validators: this.required ? [Validators.required] : []
+      })
     });
     this.parts = this.formBuilder.group({
-      month: [month, Validators.max(12)],
-      day: [day, Validators.max(31)],
-      year: [year]
+      month: new FormControl(month, {
+        updateOn: 'change',
+        validators: [Validators.max(12)]
+      }),
+      day: new FormControl(day, {
+        updateOn: 'change',
+        validators: [Validators.max(31)]
+      }),
+      year: new FormControl(year, {
+        updateOn: 'change',
+        validators: this.required ? [Validators.required] : []
+      })
     });
     this.formGroup.controls.dateOfBirth.valueChanges.subscribe(this.changeHandler.bind(this));
     this.parts.valueChanges.subscribe(this.partsChangeHandler.bind(this));
@@ -94,8 +109,8 @@ export class DateOfBirthInputsComponent implements OnInit, OnDestroy, MatFormFie
 
   set value(date: Date) {
     this.date = date;
-    this.writeValue(date);
     this.stateChanges.next();
+    this.updateFormControlValues(this.date);
   }
 
   @Input()
@@ -179,6 +194,7 @@ export class DateOfBirthInputsComponent implements OnInit, OnDestroy, MatFormFie
   }
 
   onFocusOut(event: FocusEvent) {
+    logger.debug(`Trace`, `onFocusOut()`);
     if (this.month.nativeElement.value) {
       const month = Number(this.month.nativeElement.value);
       this.parts.controls.month.setValue(month > 0 ? month.toString().padStart(2, '0') : '');
@@ -222,26 +238,7 @@ export class DateOfBirthInputsComponent implements OnInit, OnDestroy, MatFormFie
   }
 
   writeValue(value: Date): void {
-    const dob = this.formGroup?.controls.dateOfBirth;
-    const month = this.parts?.controls.month;
-    const day = this.parts?.controls.day;
-    const year = this.parts?.controls.year;
-
-    this.date = value;
-
-    if (dob) {
-      if (value) {
-        dob.setValue(value);
-        month.setValue((value.getMonth() + 1).toString().padStart(2, '0'));
-        day.setValue(value.getDate().toString().padStart(2, '0'));
-        year.setValue(value.getFullYear().toString());
-      } else {
-        dob.setValue(null);
-        month.setValue('');
-        day.setValue('');
-        year.setValue('');
-      }
-    }
+    this.value = value;
   }
 
   registerOnChange(changeFn: any): void {
@@ -257,17 +254,12 @@ export class DateOfBirthInputsComponent implements OnInit, OnDestroy, MatFormFie
   }
 
   validate(control: AbstractControl): ValidationErrors {
-    // if (this.empty && !this.required) {
-    //   return null;
-    // }
-
-    // return {
-    //   ...this.formGroup.controls.dateOfBirth.errors,
-    //   ...this.parts.controls.month.errors,
-    //   ...this.parts.controls.day.errors,
-    //   ...this.parts.controls.year.errors
-    // };
-    return this.formGroup.invalid && {
+    logger.debug(`Trace`, `validate()`, {
+      formGroup: this.formGroup,
+      parts: this.parts
+    });
+    const validDate = this.date >= this.min && this.date <= this.max;
+    return (this.formGroup.invalid || !validDate) && {
       invalid: true
     };
   }
@@ -283,13 +275,15 @@ export class DateOfBirthInputsComponent implements OnInit, OnDestroy, MatFormFie
   }
 
   handleInput(control: AbstractControl, nextElement?: HTMLInputElement): void {
+    logger.debug(`Trace`, `handleInput()`);
     if (control.valid) {
       this.autoFocusNext(control, nextElement);
     }
   }
 
   handleKeyDown(event: KeyboardEvent, control: AbstractControl, nextElement?: HTMLInputElement): void {
-    if (event.code !== "Backspace" && !/^Arrow/.test(event.code)) {
+    logger.debug(`Trace`, `handleKeyDown()`);
+    if (event.code !== 'Backspace' && !/^Arrow/.test(event.code)) {
       this.autoFocusNext(control, nextElement);
     }
   }
@@ -301,20 +295,29 @@ export class DateOfBirthInputsComponent implements OnInit, OnDestroy, MatFormFie
   }
 
   autoFocusNext(control: AbstractControl, nextElement?: HTMLInputElement): void {
+    logger.debug(`Trace`, `autoFocusNext()`);
     if (!control.errors && nextElement) {
       this.focusMonitor.focusVia(nextElement, 'program');
     }
   }
 
-  private changeHandler(dob) {
+  private changeHandler(dob: Date) {
+    logger.debug(`Trace`, `changeHandler()`, dob);
     const month = dob === null ? null : dob.getMonth() + 1;
-
-    this.parts.controls.month.setValue(month?.toString().padStart(2, '0'));
-    this.parts.controls.day.setValue(dob?.getDate().toString().padStart(2, '0'));
-    this.parts.controls.year.setValue(dob?.getFullYear().toString());
-
-    this.formControlChange(dob);
-    this.formControlTouched();
+    this.date = dob;
+    if (dob) {
+      logger.debug(`updating dob inputs`);
+      this.parts.setValue({
+        month: month?.toString().padStart(2, '0'),
+        day: dob?.getDate().toString().padStart(2, '0'),
+        year: dob?.getFullYear().toString()
+      });
+      this.formGroup.updateValueAndValidity();
+      this.parts.updateValueAndValidity();
+      this.formControlChange(this.value);
+      this.formControlTouched();
+      this.stateChanges.next();
+    }
   }
 
   private partsChangeHandler(form) {
@@ -324,11 +327,15 @@ export class DateOfBirthInputsComponent implements OnInit, OnDestroy, MatFormFie
       || year?.length !== 4) {
       this.formControlChange(null);
     } else {
-      this.formControlChange(new Date(`${year}-${month}=${day}`));
+      this.date = new Date(`${year}-${month}-${day}`);
+      this.formControlChange(this.value);
+      this.formControlTouched();
+      this.stateChanges.next();
     }
   }
 
   private validDate(): Date {
+    logger.debug(`Trace`, `validDate()`);
     const ctls = this.parts?.controls;
     const date = new Date(`${ctls.month.value}/${ctls.day.value}/${ctls.year.value}`);
 
@@ -345,5 +352,25 @@ export class DateOfBirthInputsComponent implements OnInit, OnDestroy, MatFormFie
   }
 
   private formControlTouched() {
+  }
+
+  private updateFormControlValues(value: Date) {
+    const dob = this.formGroup?.controls.dateOfBirth;
+    const month = this.parts?.controls.month;
+    const day = this.parts?.controls.day;
+    const year = this.parts?.controls.year;
+    if (dob) {
+      if (value) {
+        dob.setValue(value);
+        month.setValue((value.getMonth() + 1).toString().padStart(2, '0'));
+        day.setValue(value.getDate().toString().padStart(2, '0'));
+        year.setValue(value.getFullYear().toString());
+      } else {
+        dob.setValue(null);
+        month.setValue('');
+        day.setValue('');
+        year.setValue('');
+      }
+    }
   }
 }
