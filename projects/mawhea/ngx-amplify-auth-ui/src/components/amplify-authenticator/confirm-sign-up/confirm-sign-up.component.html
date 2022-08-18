@@ -6,7 +6,7 @@
 <ion-card-content>
   <ion-item
     lines="none"
-    class="ion-no-padding"
+    class="ion-no-padding translucent"
   >
     <ion-label>
       {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.confirm-sign-up.labels.email' | translate}}
@@ -28,19 +28,6 @@
     [formGroup]="formGroup"
     (keyup.enter)="confirmSignUp()"
   >
-<!--    <mat-form-field class="mat-form-field-full-width">-->
-<!--      <mat-label>-->
-<!--        {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.confirm-sign-up.labels.email' | translate}}-->
-<!--      </mat-label>-->
-<!--      <input-->
-<!--        matInput-->
-<!--        required-->
-<!--        formControlName="email"-->
-<!--        type="email"-->
-<!--        autocomplete="email"-->
-<!--      />-->
-<!--    </mat-form-field>-->
-
     <mat-form-field class="mat-form-field-full-width">
       <mat-label>
         {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.confirm-sign-up.labels.code' | translate}}
@@ -80,21 +67,5 @@
         <ion-spinner name="dots" *ngIf="isConfirming"></ion-spinner>
       </ion-button>
     </ion-col>
-  </ion-row>
-<!--  <ion-item lines="none">-->
-<!--    <ion-text slot="start">-->
-<!--      {{ '@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.confirm-sign-up.text.lostCode' | translate}}-->
-<!--    </ion-text>-->
-<!--    <ion-button-->
-<!--      slot="end"-->
-<!--      fill="clear"-->
-<!--      (click)="resendCode()">-->
-<!--      {{ '@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.confirm-sign-up.buttons.resendCode' | translate}}-->
-<!--    </ion-button>-->
-<!--  </ion-item>-->
-
-  <ion-row>
-
-
   </ion-row>
 </ion-card-content>

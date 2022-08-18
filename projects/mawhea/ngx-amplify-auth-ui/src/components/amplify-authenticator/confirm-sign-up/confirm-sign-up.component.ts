@@ -31,16 +31,6 @@ export class ConfirmSignUpComponent implements OnInit {
   ngOnInit() {
     this.email = this.session.get(Constants.SESSION.EMAIL_ADDRESS) || ``;
     this.formGroup = new FormGroup({
-      // email: new FormControl({
-      //   value: this.email,
-      //   disabled: true
-      // }, {
-      //   updateOn: 'change',
-      //   validators: [
-      //     Validators.required,
-      //     Validators.email
-      //   ]
-      // }),
       code: new FormControl(``, {
         updateOn: 'change',
         validators: [
