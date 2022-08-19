@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   IAuthStateChange,
@@ -13,13 +13,12 @@ import { ConfirmValidParentMatcher, FormValidator, SessionService } from '@mawhe
 
 const logger = new Logger(`AmplifyAuthenticator.SignUpComponent`);
 
-
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent implements OnInit, AfterViewChecked {
   @Output() authStateChange: EventEmitter<IAuthStateChange> = new EventEmitter();
   @Output() handleError: EventEmitter<any> = new EventEmitter();
 

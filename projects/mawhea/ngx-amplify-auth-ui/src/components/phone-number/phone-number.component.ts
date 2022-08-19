@@ -1,4 +1,13 @@
-import { Component, Input, OnInit, Optional, Self, ViewChild } from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+  Optional,
+  Self,
+  ViewChild
+} from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgControl, Validators } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
@@ -7,7 +16,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
   templateUrl: './phone-number.component.html',
   styleUrls: ['./phone-number.component.scss']
 })
-export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
+export class PhoneNumberComponent implements OnInit, AfterViewChecked, ControlValueAccessor {
   @ViewChild('phone') phone: any;
   @Input() label: string;
   @Input() hint: string;
@@ -30,10 +39,13 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
     return null;
   }
 
-  set value(value: string) {
+  set value(value: string | null) {
     this.formGroup.setValue({
-      phoneNumber: value
+      phoneNumber: value || null
     });
+    if (!value) {
+      this.phone?.reset();
+    }
   }
 
   @Input()
@@ -56,7 +68,8 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
   }
 
   constructor(
-    @Optional() @Self() public ngControl: NgControl
+    @Optional() @Self() public ngControl: NgControl,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     this.formGroup = new FormGroup({
       phoneNumber: new FormControl(null, {
@@ -80,6 +93,10 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
       this.ngControl.control?.setValidators([this.validate.bind(this)]);
       this.ngControl.control?.updateValueAndValidity();
     }
+  }
+
+  ngAfterViewChecked() {
+    this.changeDetectorRef.detectChanges();
   }
 
   registerOnChange(fn: any): void {
