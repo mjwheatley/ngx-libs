@@ -1,0 +1,38 @@
+<div
+  class="ion-padding fab-item-image-container"
+  [ngClass]="formGroup.invalid && touched ? 'add-image-error' : ''"
+>
+  <img [src]="value || placeholder" class="card-image">
+  <ion-spinner
+    *ngIf="isLoading"
+    name="circles"
+    color="secondary"
+  ></ion-spinner>
+  <ion-fab horizontal="end" vertical="top" slot="fixed">
+    <ion-fab-button>
+      <ion-icon
+        ios="camera-outline"
+        md="camera-sharp"
+      ></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="start">
+      <ng-container *ngFor="let fabButton of fabButtons">
+        <ion-fab-button
+          *ngIf="!fabButton.isHidden"
+          (click)="fabButton.handler()"
+        >
+          <ion-icon
+            [name]="fabButton.icon"
+            [color]="fabButton.color"
+          ></ion-icon>
+        </ion-fab-button>
+      </ng-container>
+    </ion-fab-list>
+  </ion-fab>
+</div>
+<input
+  #hiddenFileInput
+  class="hidden-file-input"
+  type="file"
+  (change)="fileInputChangeListener($event)"
+>

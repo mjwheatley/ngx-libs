@@ -6,6 +6,9 @@
       "@mawhea/ngx-amplify-auth-ui": [
         "dist/mawhea/ngx-amplify-auth-ui"
       ],
+      "@mawhea/ngx-camera": [
+        "dist/mawhea/ngx-camera"
+      ],
       "@mawhea/ngx-core": [
         "dist/mawhea/ngx-core"
       ]

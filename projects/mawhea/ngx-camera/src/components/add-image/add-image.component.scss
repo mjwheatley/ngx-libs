@@ -1,0 +1,25 @@
+.fab-item-image-container {
+  position: relative;
+  min-height: 225px;
+}
+
+img.card-image {
+  max-height: 250px;
+  padding: 20px 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+ion-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.add-image-error {
+  border: 2px solid var(--ion-color-danger);
+  border-radius: 5px;
+}

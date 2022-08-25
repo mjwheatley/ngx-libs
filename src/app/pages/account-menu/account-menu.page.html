@@ -11,5 +11,12 @@
 
 <ion-content>
   <div class="centered-limited-width ion-text-center">
+    <form [formGroup]="formGroup">
+      <ion-card>
+        <app-add-image
+          formControlName="imageUri"
+        ></app-add-image>
+      </ion-card>
+    </form>
   </div>
 </ion-content>

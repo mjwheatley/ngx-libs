@@ -52,18 +52,17 @@ export class AppComponent implements OnInit, OnDestroy {
           logger.debug('user signed in');
           const user = data.payload.data.attributes;
           this.authService.isAuthenticated = true;
-          await this.session.updateUser(user);
           const { queryParams } = this.route.snapshot;
           logger.debug(`queryParams`, queryParams);
           const { redirect = `/home` } = queryParams;
           await this.router.navigate([redirect]);
+          await this.setupUser(user);
           break;
         case 'signUp':
           logger.debug('user signed up');
           break;
         case 'signOut':
           logger.debug('user signed out');
-          // this.authService.updateAuthenticationStatus();
           this.authService.isAuthenticated = false;
           await this.session.updateUser({});
           await this.router.navigate([`/login`]);
@@ -81,13 +80,20 @@ export class AppComponent implements OnInit, OnDestroy {
     AppComponentUtils.initializeTranslateServiceConfig({
       translateService: this.translate,
       translateNpmModulesService: this.translateNpmModulesService,
-      translateModules: [`ngx-core`, `ngx-amplify-auth-ui`]
+      translateModules: [`ngx-core`, `ngx-amplify-auth-ui`, `ngx-camera`]
     });
-    await this.subscribeToUser();
-    this.updateMenuOptions();
     const darkModePref = AppComponentUtils.listenForDarkModePref();
     this.subscribeToDarkModeSession(darkModePref);
-    this.subscribeToDarkModeSession(true);
+    await this.subscribeToUser();
+    this.updateMenuOptions();
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      logger.debug(`ngOnInit() currentAuthenticatedUser`, user);
+      await this.setupUser(user.attributes);
+    } catch (error) {
+      logger.debug(`ngOnInit() No authenticated user`);
+      await this.session.updateUser({});
+    }
   }
 
   ngOnDestroy() {
@@ -165,5 +171,23 @@ export class AppComponent implements OnInit, OnDestroy {
         });
       });
     });
+  }
+
+  private async setupUser(userAttributes: ICognitoUserAttributes) {
+    logger.debug(`Trace`, `setupUser()`);
+    // let user: any = userAttributes;
+    // try {
+    //   user = await this.apiService.GetCognitoUser(userAttributes.sub);
+    //   logger.debug(`setupUser() user`, user);
+    //   this.onUpdateCognitoUserListener = this.apiService.OnUpdateCognitoUserListener(user.sub).subscribe(async (evt) => {
+    //     const updatedUser = (evt as any).value.data.onUpdateCognitoUser;
+    //     logger.verbose(`OnUpdateCognitoUserListener()`, updatedUser);
+    //     await this.session.updateUser(updatedUser);
+    //   });
+    // } catch (error) {
+    //   logger.error(`setupUser() GetCognitoUser() Error`, error);
+    // }
+    // await this.session.updateUser(user);
+    await this.session.updateUser(userAttributes);
   }
 }

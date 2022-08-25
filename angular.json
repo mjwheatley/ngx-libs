@@ -38,6 +38,11 @@
                 "glob": "**/*",
                 "input": "node_modules/@mawhea/ngx-amplify-auth-ui/assets",
                 "output": "assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@mawhea/ngx-camera/assets",
+                "output": "assets"
               }
             ],
             "styles": ["src/theme/variables.scss", "src/global.scss", "./node_modules/@mawhea/ngx-core/theme/global.scss"],
@@ -212,6 +217,37 @@
             "main": "projects/mawhea/ngx-amplify-auth-ui/src/test.ts",
             "tsConfig": "projects/mawhea/ngx-amplify-auth-ui/tsconfig.spec.json",
             "karmaConfig": "projects/mawhea/ngx-amplify-auth-ui/karma.conf.js"
+          }
+        }
+      }
+    },
+    "@mawhea/ngx-camera": {
+      "projectType": "library",
+      "root": "projects/mawhea/ngx-camera",
+      "sourceRoot": "projects/mawhea/ngx-camera/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/mawhea/ngx-camera/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/mawhea/ngx-camera/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/mawhea/ngx-camera/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/mawhea/ngx-camera/src/test.ts",
+            "tsConfig": "projects/mawhea/ngx-camera/tsconfig.spec.json",
+            "karmaConfig": "projects/mawhea/ngx-camera/karma.conf.js"
           }
         }
       }

@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button
+        slot="icon-only"
+        (click)="dismiss()"
+      >
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div
+    *ngIf="showWebcam"
+    class="snapshot"
+  >
+    <webcam
+      [mirrorImage]="config.mirrorImage"
+      [trigger]="triggerObservable"
+      [allowCameraSwitch]="allowCameraSwitch"
+      [switchCamera]="nextWebcamObservable"
+      [videoOptions]="videoOptions"
+      [imageQuality]="1"
+      (imageCapture)="handleImage($event)"
+      (cameraSwitched)="cameraWasSwitched($event)"
+      (initError)="handleInitError($event)"
+    ></webcam>
+  </div>
+
+  <div
+    *ngIf="webcamImage"
+    class="snapshot"
+  >
+    <img [src]="webcamImage.imageAsDataUrl"/>
+  </div>
+  <ion-fab
+    *ngIf="!webcamImage"
+    vertical="bottom"
+    horizontal="center"
+    slot="fixed"
+    [edge]="true"
+  >
+    <ion-fab-button
+      (click)="triggerSnapshot()"
+    >
+      <ion-icon name="camera"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col *ngIf="!webcamImage">
+      <ion-button
+        color="dark"
+        size="large"
+        fill="clear"
+        class="ion-float-start"
+        (click)="dismiss({selectImage: true})"
+      >
+        <ion-icon name="images"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="!webcamImage && multipleWebcamsAvailable">
+      <ion-button
+        color="dark"
+        size="large"
+        fill="clear"
+        class="ion-float-end"
+        (click)="nextWebcamObservable"
+      >
+        <ion-icon name="camera-reverse"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="webcamImage">
+      <ion-button
+        color="warning"
+        size="large"
+        fill="clear"
+        class="ion-float-start"
+        (click)="retry()"
+      >
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="webcamImage">
+      <ion-button
+        color="primary"
+        size="large"
+        fill="clear"
+        class="ion-float-end"
+        (click)="dismiss({imageUri: webcamImage.imageAsDataUrl})"
+      >
+        <ion-icon name="checkmark"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
