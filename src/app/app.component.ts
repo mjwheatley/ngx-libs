@@ -13,6 +13,7 @@ import {
 } from '@mawhea/ngx-core';
 import { Constants } from './Constants';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ZenObservable } from 'zen-observable-ts';
 
 const logger = new Logger(`AppComponent`);
 
@@ -34,6 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public appPages: IAppPage[] = [];
   private userSub: Subscription;
   private darkModeSessionSub: Subscription | undefined;
+  private onUpdateCognitoUserListener: ZenObservable.Subscription;
 
   constructor(
     private modalCtrl: ModalController,
@@ -53,9 +55,12 @@ export class AppComponent implements OnInit, OnDestroy {
           const user = data.payload.data.attributes;
           this.authService.isAuthenticated = true;
           const { queryParams } = this.route.snapshot;
-          logger.debug(`queryParams`, queryParams);
           const { redirect = `/home` } = queryParams;
-          await this.router.navigate([redirect]);
+          const { queryParams: redirectQueryParams } = this.router.parseUrl(redirect);
+          const redirectPath = redirect.split(`?`)[0];
+          await this.router.navigate([redirectPath], {
+            queryParams: redirectQueryParams
+          });
           await this.setupUser(user);
           break;
         case 'signUp':
@@ -64,6 +69,7 @@ export class AppComponent implements OnInit, OnDestroy {
         case 'signOut':
           logger.debug('user signed out');
           this.authService.isAuthenticated = false;
+          this.onUpdateCognitoUserListenerUnsubscribe();
           await this.session.updateUser({});
           await this.router.navigate([`/login`]);
           break;
@@ -103,6 +109,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.darkModeSessionSub) {
       this.darkModeSessionSub.unsubscribe();
     }
+    // this.onUpdateCognitoUserListenerUnsubscribe();
   }
 
   async signOut() {
@@ -121,19 +128,19 @@ export class AppComponent implements OnInit, OnDestroy {
     this.zone.run(() => {
       this.appPages = [
         {
-          title: 'Sign In',
+          title: 'menu.signIn',
           url: '/login',
           icon: 'log-in',
           isHidden: !!this.user.sub
         },
         {
-          title: 'Home',
+          title: 'page-home.title',
           url: '/home',
           icon: 'home',
           isHidden: !this.user.sub
         }
         // {
-        //   title: 'Account Menu',
+        //   title: 'page-account-menu-title',
         //   url: '/account-menu',
         //   icon: 'settings',
         //   isHidden: !this.user.sub
@@ -144,13 +151,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private async subscribeToUser() {
     this.user = this.session.getUser();
-    console.log(`user`, this.user);
+    logger.debug(`user`, this.user);
     if (this.user.sub) {
 
     }
     this.userSub = this.session.getUserAsObservable().subscribe(async (user: any) => {
       await this.zone.run(async () => {
-        console.log(`user updated`, user);
+        logger.debug(`user updated`, user);
         this.user = user;
         this.updateMenuOptions();
       });
@@ -189,5 +196,12 @@ export class AppComponent implements OnInit, OnDestroy {
     // }
     // await this.session.updateUser(user);
     await this.session.updateUser(userAttributes);
+  }
+
+  private onUpdateCognitoUserListenerUnsubscribe() {
+    if (this.onUpdateCognitoUserListener) {
+      this.onUpdateCognitoUserListener.unsubscribe();
+      this.onUpdateCognitoUserListener = null;
+    }
   }
 }

@@ -13,7 +13,10 @@ const MAX_FILE_SIZE: number = 102400;
 
 // const IMAGE_URI_PREFIX: string = `data:image/jpeg;base64,`;
 
+const defaultCameraConfig: ICameraModalConfig = { mirrorImage: `always` };
+
 export interface IAddImageConfig {
+  maxFileSize: number;
   hideCamera?: boolean;
   hideImageSelect?: boolean;
   cameraConfig?: ICameraModalConfig;
@@ -34,11 +37,10 @@ interface IFabButton {
 export class AddImageComponent implements OnInit, ControlValueAccessor {
   @ViewChild('hiddenFileInput') hiddenFileInput: any;
   @Input() config: IAddImageConfig = {
+    maxFileSize: MAX_FILE_SIZE,
     hideCamera: false,
     hideImageSelect: false,
-    cameraConfig: {
-      mirrorImage: `always`
-    }
+    cameraConfig: defaultCameraConfig
   };
   public imageUri: string;
   public formGroup: FormGroup;
@@ -189,7 +191,7 @@ export class AddImageComponent implements OnInit, ControlValueAccessor {
     const modal = await this.modalCtrl.create({
       component: CameraModalComponent,
       componentProps: {
-        config: this.config.cameraConfig
+        config: this.config.cameraConfig || defaultCameraConfig
       }
     });
     modal.onDidDismiss().then(async (event) => {
@@ -269,7 +271,7 @@ export class AddImageComponent implements OnInit, ControlValueAccessor {
   private async processImageUri(imageUri: string): Promise<string> {
     const file: File = FileUtil.dataUriToFile(imageUri, 'tmpImg.jpg');
     if (file) {
-      if (file.size > MAX_FILE_SIZE) {
+      if (file.size > this.config.maxFileSize) {
         return new Promise((resolve, reject) => {
           const img = new Image();
           img.onload = () => {
