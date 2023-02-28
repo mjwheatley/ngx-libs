@@ -124,13 +124,17 @@ export class SignInComponent implements OnInit, OnDestroy {
           return new Promise(async (resolve, reject) => {
             const customChallengeAnswer: string = await this.getCustomChallengeAnswer();
             Auth.sendCustomChallengeAnswer(session, customChallengeAnswer)
-              .then(user => resolve(user))
+              .then((user) =>{
+                this.isSigningIn = false;
+                resolve(user)
+              })
               .catch((err) => {
                 console.error(`Auth.sendCustomChallengeAnswer() Error`, err);
                 reject(new Error(`Failed custom auth challenge`));
               });
           });
         } else {
+          this.isSigningIn = false;
           return session;
         }
       }).catch((error) => {
