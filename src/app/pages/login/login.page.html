@@ -16,6 +16,16 @@
         <app-amplify-authenticator
           [initialState]="initialState"
         ></app-amplify-authenticator>
+        <ion-card-content>
+          <ion-row>
+            <ion-col>
+              <mat-divider class="ion-margin"></mat-divider>
+              <app-single-sign-on
+                [config]="mawheaSSOConfig"
+              ></app-single-sign-on>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
       </ion-card>
     </ion-col>
 <!--  </ion-row>-->

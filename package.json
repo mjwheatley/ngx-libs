@@ -49,6 +49,7 @@
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "aws-amplify": "^4.3.30",
+    "client-oauth2": "^4.3.3",
     "libphonenumber-js": "^1.10.6",
     "ngx-mat-intl-tel-input": "^4.1.0",
     "ngx-webcam": "^0.4.1",

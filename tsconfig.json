@@ -3,6 +3,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "@environment": ["src/environments/environment"],
       "@mawhea/ngx-amplify-auth-ui": [
         "dist/mawhea/ngx-amplify-auth-ui"
       ],

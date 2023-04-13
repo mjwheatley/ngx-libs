@@ -1,6 +1,15 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit } from '@angular/core';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
+import { environment } from 'src/environments/environment';
+
+const {
+  mawheaOidcClientId: clientId,
+  mawheaOidcClientSecret: clientSecret,
+  mawheaOidcAuthScopes = ``
+} = environment;
+
+const envScopes = mawheaOidcAuthScopes ? mawheaOidcAuthScopes.split(` `) : [];
 
 @Component({
   selector: 'app-login',
@@ -94,6 +103,11 @@ export class LoginPage implements OnInit {
   };
   public areTermsAccepted: boolean;
   public initialState: any = `signIn`;
+  public mawheaSSOConfig: any = {
+    clientId,
+    clientSecret,
+    scopes: envScopes
+  };
 
   constructor(
     public authenticator: AuthenticatorService

@@ -162,6 +162,11 @@
       "labels": {
         "dob": "Date of Birth"
       }
+    },
+    "app-single-sign-on": {
+      "buttons": {
+        "sso": "Mawhea Single Sign-On"
+      }
     }
   }
 }
