@@ -1,6 +1,6 @@
 {
   "name": "@mawhea/ngx-amplify-auth-ui",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "author": "mjwheatley",
   "homepage": "https://github.com/mjwheatley/ngx-libs",
   "license": "MIT",
@@ -16,7 +16,7 @@
     "@angular/router": "^14.0.0",
     "@ionic/angular": "^6.1.9",
     "@ionic/storage": "^3.0.4",
-    "@mawhea/ngx-core": "^0.0.1",
+    "@mawhea/ngx-core": "^0.0.4",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "aws-amplify": "^4.3.30",
@@ -28,8 +28,5 @@
   },
   "dependencies": {
     "tslib": "^2.3.0"
-  },
-  "devDependencies": {
-    "client-oauth2": "^4.3.3"
   }
 }
