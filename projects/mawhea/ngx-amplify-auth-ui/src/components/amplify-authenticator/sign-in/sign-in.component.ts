@@ -126,6 +126,7 @@ export class SignInComponent implements OnInit, OnDestroy {
             Auth.sendCustomChallengeAnswer(session, customChallengeAnswer)
               .then((user) =>{
                 this.isSigningIn = false;
+                this.formGroup.controls.password.reset();
                 resolve(user)
               })
               .catch((err) => {
@@ -135,6 +136,7 @@ export class SignInComponent implements OnInit, OnDestroy {
           });
         } else {
           this.isSigningIn = false;
+          this.formGroup.controls.password.reset();
           return session;
         }
       }).catch((error) => {
