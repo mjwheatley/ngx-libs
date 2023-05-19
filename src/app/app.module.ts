@@ -9,7 +9,6 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AppModule as NgxCoreAppModule, createTranslateLoader, TranslateNpmModulesService } from '@mawhea/ngx-core';
 
-
 @NgModule({
   declarations: [
     AppComponent,

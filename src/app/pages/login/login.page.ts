@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit } from '@angular/core';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
 import { environment } from 'src/environments/environment';

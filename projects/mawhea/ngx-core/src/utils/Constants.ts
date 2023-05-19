@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 export class Constants {
   public static EMPTY_STRING = '';
 

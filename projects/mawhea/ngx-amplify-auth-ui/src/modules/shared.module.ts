@@ -5,12 +5,12 @@ import {
   DateOfBirthInputsComponent,
   PhoneNumberComponent
 } from '../components';
-import { NgxMatIntlTelInputModule } from 'ngx-mat-intl-tel-input';
+import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 
 @NgModule({
   imports: [
     CoreSharedModule,
-    NgxMatIntlTelInputModule
+    NgxMatIntlTelInputComponent
   ],
   declarations: [
     DateOfBirthComponent,
@@ -22,7 +22,7 @@ import { NgxMatIntlTelInputModule } from 'ngx-mat-intl-tel-input';
     DateOfBirthComponent,
     DateOfBirthInputsComponent,
     PhoneNumberComponent,
-    NgxMatIntlTelInputModule
+    NgxMatIntlTelInputComponent
   ]
 })
 export class SharedModule {

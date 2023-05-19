@@ -26,6 +26,7 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 @import '~@aws-amplify/ui-angular/theme.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap');
 /* Important fix for body min-height to correct issue caused by @aws-amplify/ui-angular/theme.css*/
 body {
   min-height: 100%;
