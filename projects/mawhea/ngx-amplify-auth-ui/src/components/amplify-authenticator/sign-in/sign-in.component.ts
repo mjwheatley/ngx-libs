@@ -30,7 +30,7 @@ const logger = new Logger(`AmplifyAuthenticator.SignInComponent`);
 })
 
 export class SignInComponent implements OnInit, OnDestroy {
-  @Input() getCustomChallengeAnswer: () => Promise<string> = async () => ``;
+  @Input() getCustomChallengeAnswer: (session: any) => Promise<string> = async () => ``;
   @Input() config: IAmplifyAuthConfig = {};
   @Input() clientMetadata: IAmplifyAuthClientMetadata;
   @Output() authStateChange: EventEmitter<IAuthStateChange> = new EventEmitter();
@@ -122,7 +122,7 @@ export class SignInComponent implements OnInit, OnDestroy {
         ) {
           logger.info(`Custom authentication challenge!`);
           return new Promise(async (resolve, reject) => {
-            const customChallengeAnswer: string = await this.getCustomChallengeAnswer();
+            const customChallengeAnswer: string = await this.getCustomChallengeAnswer(session);
             Auth.sendCustomChallengeAnswer(session, customChallengeAnswer)
               .then((user) =>{
                 this.isSigningIn = false;
