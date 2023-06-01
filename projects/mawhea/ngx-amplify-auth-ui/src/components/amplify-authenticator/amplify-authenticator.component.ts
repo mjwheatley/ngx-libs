@@ -26,7 +26,7 @@ export class AmplifyAuthenticatorComponent implements OnInit, OnDestroy {
     }
   };
   @Input() clientMetadata: IAmplifyAuthClientMetadata;
-  @Input() getCustomChallengeAnswer: () => Promise<string>;
+  @Input() getCustomChallengeAnswer: (session: any) => Promise<string>;
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
   public AUTH_STATE: IAuthState = AUTH_STATE;
